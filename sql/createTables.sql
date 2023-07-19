@@ -15,4 +15,14 @@ CREATE TABLE IF NOT EXISTS clients(
     email VARCHAR(50) NOT NULL UNIQUE,
     "paymentId" INTEGER UNIQUE,
     FOREIGN KEY("paymentId") REFERENCES payment_infos("id")
+    ON DELETE SET NULL
+);
+
+CREATE TABLE IF NOT EXISTS playlists (
+    "id" SERIAL PRIMARY KEY,
+    "name" VARCHAR(45) NOT NULL,
+    "createdAt" TIMESTAMP NOT NULL, 
+    "clientId" INTEGER NOT NULL,
+    FOREIGN KEY("clientId") REFERENCES clients("id")
+    ON DELETE CASCADE
 );

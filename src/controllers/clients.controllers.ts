@@ -3,6 +3,7 @@ import { TClient, TClientPaymentInfo, TClientRequest, TPaymentInfos, TPaymentInf
 import createClientsService from "../services/clients/createClients.service"
 import createPaymentInfosService from "../services/paymentInfos/createPaymentInfos.service"
 import listClientsService from "../services/clients/listClients.service"
+import { deleteClientService } from "../services/clients/deleteClients.service"
 
 const createClientsCotroller = async ( req: Request, res: Response): Promise<Response> =>{
 
@@ -29,4 +30,13 @@ const listClientsController =async (req: Request, res: Response): Promise<Respon
     return res.json(clients)
 }
 
-export  { createClientsCotroller, createClientPaymentInfosController, listClientsController}
+const deleteClientController = async (req: Request, res: Response): Promise<Response> =>{
+
+    const clientId: number = parseInt(req.params.id)
+
+    await deleteClientService(clientId)
+
+    return res.status(204).send()
+} 
+
+export  { createClientsCotroller, createClientPaymentInfosController, listClientsController, deleteClientController}
